@@ -1,0 +1,9 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/short_url
+    username: postgres
+    password: postgres
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
