@@ -7,3 +7,6 @@ spring:
     password: postgres
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
+
+url-config:
+  base-url: http://localhost:8080
