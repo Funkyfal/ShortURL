@@ -1,6 +1,7 @@
 package org.emobile.urlripper.service;
 
 import org.emobile.urlripper.configuration.AppConfig;
+import org.emobile.urlripper.dto.OriginalUrlDto;
 import org.emobile.urlripper.entity.UrlMapping;
 import org.emobile.urlripper.exception.ShortUrlAlreadyExists;
 import org.emobile.urlripper.exception.UrlMappingNotFoundException;
@@ -40,7 +41,7 @@ class UrlMappingServiceTest {
         when(repository.findByOriginalUrl(original)).thenReturn(Optional.empty());
         when(repository.existsByShortCode(anyString())).thenReturn(false);
 
-        String result = service.shorten(original);
+        String result = service.shorten(new OriginalUrlDto(original, null));
 
         assertThat(result).startsWith("http://localhost:8080/");
         String code = result.substring(result.lastIndexOf('/') + 1);
@@ -61,7 +62,7 @@ class UrlMappingServiceTest {
         existing.setShortCode("ABC1234");
         when(repository.findByOriginalUrl(original)).thenReturn(Optional.of(existing));
 
-        assertThatThrownBy(() -> service.shorten(original))
+        assertThatThrownBy(() -> service.shorten(new OriginalUrlDto(original, null)))
                 .isInstanceOf(ShortUrlAlreadyExists.class)
                 .hasMessageContaining("ABC1234");
         verify(repository, never()).save(any());

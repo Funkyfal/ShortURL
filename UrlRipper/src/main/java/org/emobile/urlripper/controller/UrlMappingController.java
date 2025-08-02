@@ -30,6 +30,6 @@ public class UrlMappingController {
     public ResponseEntity<String> cut(@RequestBody OriginalUrlDto originalUrlDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(urlMappingService.shorten(originalUrlDto.originalUrl()));
+                .body(urlMappingService.shorten(originalUrlDto));
     }
 }

@@ -1,5 +1,6 @@
 package org.emobile.urlripper.controller;
 
+import org.emobile.urlripper.dto.OriginalUrlDto;
 import org.emobile.urlripper.exception.ShortUrlAlreadyExists;
 import org.emobile.urlripper.exception.UrlMappingNotFoundException;
 import org.emobile.urlripper.service.UrlMappingService;
@@ -25,7 +26,7 @@ class UrlMappingControllerTest {
 
     @Test
     void cut_ValidUrl_ShouldReturnCreated() throws Exception {
-        when(service.shorten("https://ex.com"))
+        when(service.shorten(new OriginalUrlDto("https://ex.com", null)))
                 .thenReturn("http://localhost:8080/ABC1234");
 
         mockMvc.perform(post("/cut")
@@ -37,7 +38,7 @@ class UrlMappingControllerTest {
 
     @Test
     void cut_ExistingUrl_ShouldReturnConflict() throws Exception {
-        when(service.shorten("https://ex.com"))
+        when(service.shorten(new OriginalUrlDto("https://ex.com", null)))
                 .thenThrow(new ShortUrlAlreadyExists("exists"));
 
         mockMvc.perform(post("/cut")
