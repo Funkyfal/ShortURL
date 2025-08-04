@@ -1,8 +1,6 @@
 package org.emobile.urlripper.exception.handler;
 
-import org.emobile.urlripper.exception.AliasDoesntMatch;
-import org.emobile.urlripper.exception.ShortUrlAlreadyExists;
-import org.emobile.urlripper.exception.UrlMappingNotFoundException;
+import org.emobile.urlripper.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,6 +27,27 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleAliasDoesntMatch(AliasDoesntMatch ex) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(CodeGenerationException.class)
+    public ResponseEntity<String> handleCodeGenerationException(CodeGenerationException ex) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidUrlException.class)
+    public ResponseEntity<String> handleInvalidUrlException(InvalidUrlException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(UrlExpiredException.class)
+    public ResponseEntity<String> handleUrlExpiredException(UrlExpiredException ex) {
+        return ResponseEntity
+                .status(HttpStatus.GONE)
                 .body(ex.getMessage());
     }
 }

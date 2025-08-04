@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "url_mapping")
@@ -22,4 +25,14 @@ public class UrlMapping {
 
     @Column(name = "short_code")
     private String shortCode;
+
+    @Column(name = "created_by", length = 100)
+    private String createdBy;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "expiration_at")
+    private LocalDateTime expirationAt;
 }

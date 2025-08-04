@@ -28,8 +28,9 @@ public class UrlMappingController {
 
     @PostMapping("/cut")
     public ResponseEntity<String> cut(@RequestBody OriginalUrlDto originalUrlDto) {
+        String shortUrl = urlMappingService.shorten(originalUrlDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(urlMappingService.shorten(originalUrlDto));
+                .body(shortUrl);
     }
 }
