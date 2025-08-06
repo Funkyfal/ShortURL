@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: init
+      author: anton
+      changes:
+        - createTable:
+            tableName: url_mapping
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: original_url
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: short_code
+                  type: varchar(10)
+                  constraints:
+                    unique: true
+                    nullable: false
